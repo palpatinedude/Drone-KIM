@@ -1,0 +1,69 @@
+This file contains the matlab function of the model scripts.
+Read them together with the model screenshot, as it will become very self explanatory.
+
+function [maskDouble  , width] = fcn(red, green, blue)
+
+    % Define the threshold for red detection.
+    threshold = 50;
+    
+    % Create the binary mask. A pixel is considered red if:
+    %   - Its red channel exceeds 'threshold'
+    %   - And its red value is greater than its green and blue values.
+    mask = (red > threshold) & (red > green) & (red > blue);
+    
+    % To find width
+    % Immediately convert the mask to a double array (values 1 and 0).
+    maskDouble = 1.0 * mask;
+    
+    dimensions  = size(maskDouble);   
+    width = dimensions(2);
+end
+
+#################################
+
+function x_center = computeCenter(x_left, x_right)
+    x_center = (x_left + x_right) / 2;
+end
+
+###################################
+
+function direction = fcn(x_center, width)
+
+%Find the center of the FOV
+x_imgCenter = width/2;
+
+% Pixel error: positive if line is right of center, negative if left
+e_pixel = x_center - x_imgCenter;
+
+    if e_pixel > 0
+        direction = 1;
+    elseif e_pixel < 0
+        direction = -1;
+    else
+        direction = 0;
+    end
+
+end
+
+
+###############################
+
+function yaw_err = fcn(houghLines)
+% houghLines is a set of (rho, theta) pairs
+% Return yaw error: difference between line angle and forward direction
+
+    if isempty(houghLines)
+        yaw_err = 0;
+        return;
+    end
+
+    % Assume houghLines is a N×2 matrix: [rho, theta]
+    theta = houghLines(:, 2);       % Extract all θ
+    dominant_theta = mean(theta);   % Or pick the max response
+
+    % Define straight-ahead direction
+    forward_angle = pi/2;
+    yaw_err = dominant_theta - forward_angle;
+end
+
+#################################
