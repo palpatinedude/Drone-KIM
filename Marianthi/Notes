@@ -1,0 +1,31 @@
+INITIAL JOBS PID IN X AXE : 
+
+1. IMAGE PROCESSING REPRESENT THE EDGES AND THE CENTER OF THE ROBOT INSIDE THE LINE .
+2. FIND WHERE THE ROBOT IS  AND CALCULATE THE PATH PLANNING .
+3. FIND THE HORIZONTAL DISTANCE WITH THE HELP OF CENTER OF LINE AND CENTER OF FIELD VIEW(WHERE THE ROBOT IS ), FIND THE DIFFERENCE IN CM(X AXE).
+4. SEND THE ERROR FROM IMAGE PROCESSING COMPONENT TO CONTROL SYSTEM (ERROR)
+5. IN CONTROL SYSTEM TAKE THE ERROR IN X AXES AND DO PID TO GO TO TARGET POSITION
+6. TRANSLATE PID ERROR TO MOTOR SPEED AND DIRECTIONS .
+
+***based on sensors or camera ?
+
+COMPONENTS : 
+1. ultrasound
+2. camera(optical flow 60 frames per sec) -> horizontal motion and speed 
+3. pressure sensor - altitude
+4. imu --> rotational and translation motion 
+
+
+MOTORS (4 motors x 6 deg) --> 3 translations and 3 rotationals: 
+ - command one motion without affecting the others 
+1. Opposing motors spin in the same direction --> forward 
+2. not yaw means all motors spinning at the same speed so to make yaw torque --> create torque by slow down one pair motors and spin the other pair up --> total force the same (hover) but sum of motor torques is non zero and drone yaw --> yaw not affect thrust
+
+
+Use sensors to estimate the state of drone --> angular position ,horizontal velocity 
+
+
+
+
+Notes for movement of drone : 
+1. thrust accomplished by rotating and torquing a propeller which has mass, actuators generate reaction torque that is opposite direction . Put 2 motors to spin in different directions , so 4 motorthe torques from spinning the properellers will balance out and the drone will not spin
