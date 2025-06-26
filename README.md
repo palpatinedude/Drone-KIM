@@ -6,6 +6,7 @@ This project implements a **vision-based autonomous navigation and landing syste
 
 - 🔍 **Image Processing System**  
 - 🧭 **Path Planning Component**
+- Run from - KIM_DRONE_FINAL.tar.gz
 
 The drone navigates along a white line and detects a circular landing pad using real-time video from its front camera. It processes the image onboard, extracts navigation cues, and applies closed-loop control for accurate movement and landing.
 
